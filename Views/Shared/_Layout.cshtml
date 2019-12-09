@@ -1,0 +1,180 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/index.css">
+    <link rel="stylesheet" href="~/css/about.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="~/./OwlCarousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/./OwlCarousel/dist/assets/owl.theme.default.min.css">
+    @* sweatAlert *@
+    <link href="~/script/SweatAlert/sweetalert2.min.css" rel="stylesheet" />
+    <!-- Owl Carousel -->
+    <title>Magic Home @ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <section id="first">
+            <div class="main">
+                <nav class="navbar navbar-expand-lg navbar-light ">
+                    <a class="navbar-brand" href="~/Home/Index">MAGIC HOME</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto navbarlist">
+                            <li class="nav-item active navbarli">
+                                <a class="nav-link" href="~/Advert/Sale">Sale <span class="sr-only">(current)</span></a>
+
+                            </li>
+                            <li class="nav-item navbarli">
+                                <a class="nav-link" href="~/Advert/Rent">Rent</a>
+
+                            </li>
+                            <li class="nav-item navbarli">
+                                <a class="nav-link" href="~/Home/About">About</a>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="form-inline my-2 my-lg-0">
+                            <a href="~/Advert/Create" class="btn btn-common"><i class="fas fa-plus-square"></i> Create Advert</a>
+
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a>Hello @User.Identity.Name</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="Logout" style="text-decoration:none">LogOut</a>
+                                </li>
+                            }
+
+                            else
+                            {
+                                <li>
+                                    <a asp-controller="Account" asp-action="Register" style="text-decoration:none">Register</a>
+
+                                </li>
+                                <li>
+                                    <a asp-controller="Account" asp-action="LogIn" style="text-decoration:none">LogIn</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+
+    </header>
+
+    @RenderBody()
+
+    <footer>
+
+        <section id="social">
+
+            <div class="container ">
+                <div class="row ay ">
+                    <div class="col-md-6 col-12 ">
+                        <div class="row ">
+                            <div class="col-md-6 col-6 ">
+                                <ul>
+                                    <h4>Project</h4>
+                                    <li><a href="# ">New Project</a></li>
+                                    <li><a href="# ">New Project </a></li>
+                                    <li><a href="# ">New Project</a></li>
+                                    <li><a href="# ">New Project</a></li>
+                                    <li><a href="# ">New Project</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-6 ">
+                                <ul>
+                                    <h4>Popular Searches</h4>
+                                    <li><a href="# ">Apartments for rent</a></li>
+                                    <li><a href="# ">Apartments for rent</a></li>
+                                    <li><a href="# ">Apartments for rent</a></li>
+                                    <li><a href="# ">Apartments for rent</a></li>
+                                    <li><a href="# ">Apartments for rent</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 ">
+                        <div class="row ">
+                            <div class="col-md-6 col-6 ">
+                                <ul>
+                                    <h4>Proyektlər</h4>
+                                    <li><a href="# ">Yeni tikililər</a></li>
+                                    <li><a href="# ">Yeni tikililər</a></li>
+                                    <li><a href="# ">Yeni tikililər</a></li>
+                                    <li><a href="# ">Yeni tikililər</a></li>
+                                    <li><a href="# ">Yeni tikililər</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-6 ">
+                                <ul>
+                                    <h4>For Professionals</h4>
+                                    <li><a href="# ">Rental Communities</a></li>
+                                    <li><a href="# ">Rental Communities</a></li>
+                                    <li><a href="# ">Rental Communities</a></li>
+                                    <li><a href="# ">Rental Communities</a></li>
+                                    <li><a href="# ">Rental Communities</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 ">
+                    <ul class="socialul ">
+                        <li>
+                            <a href="instagram.com/aynurabdullayeva "><i class="fab fa-instagram "></i></a>
+                        </li>
+                        <li>
+                            <a href="fb.com/aynurabdullayeva "><i class="fab fa-facebook "></i></a>
+                        </li>
+                        <li>
+                            <a href="twitter.com/aynurabdullayeva "><i class="fab fa-twitter "></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pb-4 text-center ">
+
+                </div>
+            </div>
+
+        </section>
+    </footer>
+    <!----the end main section-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="~/script/SweatAlert/sweetalert2.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="~/./OwlCarousel/dist/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="~/script/index.js"></script>
+
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

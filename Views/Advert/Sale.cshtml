@@ -1,0 +1,96 @@
+﻿
+@model List<MagicHome.Models.Advert>
+
+@{
+
+    ViewBag.Title = "Sale";
+}
+
+
+
+<section id="detailsection">
+    <div class="detailsection">
+        <div class="container">
+            <div id="saleforappend" class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="foritem col-md-4">
+                        <div class="card item">
+                            <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                                <div class="card">
+                                    <div class="forimage">
+                                        <img src="~/Images/@item.Image" class="card-img-top"
+                                             alt="...">
+                                    </div>
+                                    @{
+                                        if (item.IsNew == true)
+                                        {
+                                            <div class="new">
+                                                <h4>New</h4>
+                                            </div>
+                                        }
+                                        if (item.IsVip)
+                                        {
+                                            <div class="vip">
+                                                <span><i class="fas fa-crown"></i></span>
+                                            </div>
+                                        }
+                                    }
+                                    <div class="card-body">
+                                        <div class="liked">
+                                            <span><i data-id="@item.Id" class="far fa-heart"></i></span>
+                                        </div>
+                                        <h5 class="card-title">₼ @item.Price</h5>
+                                        <div class="icons">
+                                            <i class="fas fa-bed"></i> <span>@item.BedRoom b.o</span>
+                                            <i class="fas fa-bath"></i> <span>@item.BathRoom b.o</span>
+                                            <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                        </div>
+                                        <p>@item.City.CityName / @item.Id</p>
+                                        <p>@item.Address</p>
+
+                                        <p class="text-warning text-center bg-info">@item.AdvertType.SaleType</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        @{
+            if (ViewBag.TotalRentCount > 5)
+            {
+                <input type="button" style="display:block;margin:20px auto;cursor:pointer;" id="loadmore" class="btn btn-success " value="Load More" />
+            }
+
+        }
+    </div>
+</section>
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            var totalcount = @ViewBag.TotalRentCount;
+            var page = 2;
+            $(document).on("click", "#loadmore", function () {
+                $.ajax({
+                    url: "/Ajax/LoadSale",
+                    type: "GET",
+                    data: { a: page },
+                    success: function (res) {
+                        $("#saleforappend").append(res);
+                        page++;
+                        if ($(".foritem").length >= totalcount)
+                            $("#loadmore").hide();
+                    }
+                })
+            })
+
+
+        })
+    </script>
+}

@@ -1,0 +1,79 @@
+﻿@model List<MagicHome.Models.Message>
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Areas/HomeAdmin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    @foreach (var item in Model)
+    {
+        <dl class="singleMessage dl-horizontal">
+            <dt>
+                Name :
+            </dt>
+            <dd>
+                @item.Name
+            </dd>
+            <dt>
+                Email :
+            </dt>
+            <dd>
+                @item.Email
+            </dd>
+            <dt>
+                Content :
+            </dt>
+            <dd>
+                @item.Content
+            </dd>
+            <dt>
+                Title :
+            </dt>
+            <dd>
+                @item.Title
+            </dd>
+            <dt>
+                Created at :
+            </dt>
+            <dd>
+                @(item.CreateTime.ToString("dd.MM.yyyy"))
+            </dd>
+            <dt>
+                Status :
+            </dt>
+            <dd id="message_@item.Id">
+                @(item.IsRead ? "Read" : "Unread")
+            </dd>
+            <dd>
+                <button id="@item.Id" @(item.IsRead ? "disabled style=cursor:not-allowed;" : "")>Mark as read</button>
+
+</dd>
+
+</dl>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".singleMessage button").click(function () {
+            var messageId = $(this).attr("id");
+            $.ajax({
+                url: "/Messages/MarkAsRead",
+                type: "GET",
+                data: { messageId },
+                success: function (response) {
+                    response ? $("#message_" + messageId).text("Read") : alert("Can't mark as read!");
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Please, contact to your developer!");
+                }
+            });
+        });
+    })
+</script>

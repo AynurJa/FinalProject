@@ -1,0 +1,72 @@
+/* .page-title-bar {
+    background-color: #3f4448;
+    background-image: url(https://demo2.wpopal.com/maisonco/wp-content/uploads/2018/12/bg-breadcrumb.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    z-index: 3;
+    border-width: 0;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media screen and (min-width:1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media screen and (min-width:576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+*/
+
+#about {
+    background-color: #3f4448;
+    background-image: url(https://demo2.wpopal.com/maisonco/wp-content/uploads/2018/12/bg-breadcrumb.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 250px;
+    /* margin-top: 17px; */
+}
+
+#about .container h1 {
+    text-align: center;
+    color: #7393b4;
+    padding-top: 100px
+}
+
+#about p {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#text {
+    background-color: #d6d8d8;
+    padding: 3% 0;
+}
+
+#text p {
+    text-align: center;
+}

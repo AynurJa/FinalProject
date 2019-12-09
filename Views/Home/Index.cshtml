@@ -1,0 +1,496 @@
+﻿@model MagicHome.ViewModel.HomeVM
+@{
+    ViewBag.Title = "Home Page";
+
+
+}
+
+<header>
+    <img src="~/images/hero.jpg" alt="">
+    <div class="search">
+        <h2>
+            Discover a place you'll love to live
+        </h2>
+        <div class="buttons">
+            <button data-id="3" class="firstbutton active"><a>All</a></button>
+            <button data-id="1" class="secondbutton "><a>Sale</a></button>
+            <button data-id="2" class="thirdbutton "><a>Rent</a></button>
+        </div>
+        <div class="inputsearch">
+            <input id="searchreturn" type="text" placeholder=" Enter City,Address..." class="searchinput"><i class="fas fa-search iconsearch" onclick="SearchCity()"></i>
+
+
+        </div>
+        <div class="searchprice">
+            <input class="form-control" type="number" name="fromprice" placeholder="Min-Price" id="fromprice">
+            <input class="form-control" type="number" name="toprice" placeholder="Max-Price" id="toprice">
+        </div>
+    </div>
+</header>
+
+<!----start main section-->
+<section id="ay">
+    <div class="container-fluid">
+        <div class="titlecorusel">
+            <h3>Vip Homes</h3>
+        </div>
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model.aVip)
+            {
+                <div class="card item">
+                    <div class="liked">
+                        <span><i data-id="@item.Id" class="far fa-heart" onclick="likeItem(this)"></i></span>
+                    </div>
+                    <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                        <div class="card">
+                            <div class="forimage">
+                                <img src="~/Images/@item.Image" class="card-img-top"
+                                     alt="...">
+                            </div>
+                            @{
+                                if (item.IsNew == true)
+                                {
+                                    <div class="new">
+                                        <h4>New</h4>
+                                    </div>
+                                }
+                                if (item.IsVip)
+                                {
+                                    <div class="vip">
+                                        <span><i class="fas fa-crown"></i></span>
+                                    </div>
+                                }
+                            }
+
+                            <div class="card-body">
+                                <h5 class="card-title">₼ @item.Price</h5>
+                                <div class="icons">
+                                    <i class="fas fa-bed"></i> <span>@item.BedRoom b.o</span>
+                                    <i class="fas fa-bath"></i> <span>@item.BathRoom b.o</span>
+                                    <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                </div>
+                                <p>@item.City.CityName</p>
+                                <p>@item.Address</p>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="titlecorusel">
+            <h3>New Sale Adverts</h3>
+        </div>
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model.aNewHome)
+            {
+                if (item.AdvertTypeId == 1)
+                {
+                    <div class="card item">
+                        <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                            <div class="card">
+                                <div class="forimage">
+                                    <img src="~/Images/@item.Image" class="card-img-top"
+                                         alt="...">
+                                </div>
+                                @{
+                                    if (item.IsNew == true)
+                                    {
+                                        <div class="new">
+                                            <h4>New</h4>
+                                        </div>
+                                    }
+                                    if (item.IsVip)
+                                    {
+                                        <div class="vip">
+                                            <span><i class="fas fa-crown"></i></span>
+                                        </div>
+                                    }
+                                }
+
+                                <div class="card-body">
+                                    <div class="liked">
+                                        <span><i data-id="@item.Id" class="far fa-heart"></i></span>
+                                    </div>
+                                    <h5 class="card-title">₼ @item.Price</h5>
+                                    <div class="icons">
+                                        <i class="fas fa-bed"></i> <span>@item.BedRoom y.o</span>
+                                        <i class="fas fa-bath"></i> <span>@item.BathRoom h.o</span>
+                                        <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                    </div>
+                                    <p>@item.City.CityName</p>
+                                    <p>@item.Address</p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+            }
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="titlecorusel">
+            <h3> New Rent Adverts</h3>
+        </div>
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model.aNewHome)
+            {
+                if (item.AdvertTypeId == 2)
+                {
+                    <div class="card item">
+                        <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                            <div class="card">
+                                <div class="forimage">
+                                    <img src="~/Images/@item.Image" class="card-img-top"
+                                         alt="...">
+                                </div>
+                                @{
+                                    if (item.IsNew == true)
+                                    {
+                                        <div class="new">
+                                            <h4>New</h4>
+                                        </div>
+                                    }
+                                    if (item.IsVip)
+                                    {
+                                        <div class="vip">
+                                            <span><i class="fas fa-crown"></i></span>
+                                        </div>
+                                    }
+                                }
+
+                                <div class="card-body">
+                                    <div class="liked">
+                                        <span><i data-id="@item.Id" class="far fa-heart"></i></span>
+                                    </div>
+                                    <h5 class="card-title">₼ @item.Price</h5>
+                                    <div class="icons">
+                                        <i class="fas fa-bed"></i> <span>@item.BedRoom y.o</span>
+                                        <i class="fas fa-bath"></i> <span>@item.BathRoom h.o</span>
+                                        <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                    </div>
+                                    <p>@item.City.CityName</p>
+                                    <p>@item.Address</p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+            }
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="titlecorusel">
+            <h3>Sell Homes</h3>
+        </div>
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model.aSale)
+            {
+                <div class="card item">
+                    <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                        <div class="card">
+                            <div class="forimage">
+                                <img src="~/Images/@item.Image" class="card-img-top"
+                                     alt="...">
+                            </div>
+                            @{
+                                if (item.IsNew == true)
+                                {
+                                    <div class="new">
+                                        <h4>New</h4>
+                                    </div>
+                                }
+                                if (item.IsVip)
+                                {
+                                    <div class="vip">
+                                        <span><i class="fas fa-crown"></i></span>
+                                    </div>
+                                }
+                            }
+
+                            <div class="card-body">
+                                <div class="liked">
+                                    <span><i data-id="@item.Id" class="far fa-heart"></i></span>
+                                </div>
+                                <h5 class="card-title">₼ @item.Price</h5>
+                                <div class="icons">
+                                    <i class="fas fa-bed"></i> <span>@item.BedRoom y.o</span>
+                                    <i class="fas fa-bath"></i> <span>@item.BathRoom h.o</span>
+                                    <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                </div>
+                                <p>@item.City.CityName</p>
+                                <p>@item.Address</p>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="titlecorusel">
+            <h3>Rent Homes</h3>
+        </div>
+
+        <div class="owl-carousel owl-theme">
+            @foreach (var item in Model.aRent)
+            {
+                <div class="card item">
+                    <a href="@Url.Action("Detail","Advert",new { id = item.Id })">
+                        <div class="card">
+                            <div class="forimage">
+                                <img src="~/Images/@item.Image" class="card-img-top"
+                                     alt="...">
+                            </div>
+                            @{
+                                if (item.IsNew == true)
+                                {
+                                    <div class="new">
+                                        <h4>New</h4>
+                                    </div>
+                                }
+                                if (item.IsVip)
+                                {
+                                    <div class="vip">
+                                        <span><i class="fas fa-crown"></i></span>
+                                    </div>
+                                }
+                            }
+
+                            <div class="card-body">
+                                <div class="liked">
+                                    <span><i data-id="@item.Id" class="far fa-heart"></i></span>
+                                </div>
+                                <h5 class="card-title">₼ @item.Price</h5>
+                                <div class="icons">
+                                    <i class="fas fa-bed"></i> <span>@item.BedRoom b.r</span>
+                                    <i class="fas fa-bath"></i> <span>@item.BathRoom b.r</span>
+                                    <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                </div>
+                                <p>@item.Address</p>
+                                <p>@item.City.CityName</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!----the end main section-->
+
+<section id="contact">
+    <div class="container">
+        <section class="mb-4">
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Contact Us</h2>
+            <div class="row">
+                <div class="col-md-9 mb-md-0 mb-5">
+
+                    <form id="contact-form" name="contact-form" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="name" class="">Name</label>
+                                    <input type="text" id="name" name="Name" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="email" class="">Email</label>
+                                    <input type="email" id="email" name="Email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <label for="subject" class="">Title</label>
+                                    <input type="text" id="subject" name="Title" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form">
+                                    <label for="message">Mesaj</label>
+                                    <textarea type="text" id="message" name="Content" rows="2"
+                                              class="form-control md-textarea" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center text-md-left mt-2">
+                        <a class="sss btn btn-primary">Submit</a>
+                    </div>
+                    <div class="status"></div>
+                </div>
+
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                            <p>AAF Business,CodeAcademy, AZ</p>
+                        </li>
+
+                        <li>
+                            <i class="fas fa-phone mt-4 fa-2x"></i>
+                            <p>+994 50 444 2633</p>
+                        </li>
+
+                        <li>
+                            <i class="fas fa-envelope mt-4 fa-2x"></i>
+                            <p>aynurja@code.edu.az</p>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+@section scripts{
+
+    <script>
+        $(".search .buttons button").click(function () {
+            $(this)
+                .addClass("active")
+                .siblings()
+                .removeClass("active");
+        });
+
+        $('#searchreturn').keypress(function (e) {
+            if (e.which == 13)
+                SearchCity();
+        });
+
+        function SearchCity() {
+            var toPrice = $("#toprice").val();
+            var fromPrice = $("#fromprice").val();
+            var searchKey = $("#searchreturn").val();
+            var categoryId = $(".search .buttons .active").attr("data-id");
+
+            if (searchKey.length > 0) {
+                if (toPrice > 0 && (fromPrice > toPrice)) {
+                    alert("Min-Price is bigger than Max-Price!");
+                    return;
+                }
+                $.ajax({
+                    url: "/Ajax/SearchButton",
+                    data: { categoryId, searchKey, fromPrice, toPrice },
+                    type: "GET",
+                    success: function (res) {
+                        $("#ay").html(res)
+                        Swal.fire({
+                           title: 'succes!',
+                            text: res.message,
+                        })
+
+                    }
+                });
+            } else {
+                alert("Some required filter fields are empty!");
+            }
+        }
+
+        function likeItem(element) {
+            var itemId = $(element).attr("data-id");
+            $.ajax({
+                url: "/Like/",
+                data: { itemId },
+                type: "GET",
+                success: function (res) {
+                    if (res) {
+                        
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $(document).on("click", ".sss", function () {
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var title = $("#subject").val();
+                var message = $("#message").val();
+
+                if (!name || !email || !title || !message) {
+                   swal({
+                       icon: "error",
+                       button: "ok",
+                        title: "wrong",
+                        text: "all inputs must be fill"
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Home/lform",
+                    data: { Name: name, Email: email, Title: title, Content: message },
+                    type: "POST",
+                    success: function (res) {
+
+
+                        errortext = "";
+
+                        if (res.status === "200") {
+                            $('#contact-form')[0].reset();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Your Message has been sent',
+                                //text: 'ugurla gonderildi',
+                                showConfirmButton: true,
+                                //timer: 1500
+                            })
+                        }else if (res.status === "400") {
+
+                            for (var i = 0; i < res.errorMessage.length; i++) {
+                                errortext = errortext + " " + res.errorMessage[i].errorMessage;
+                            }
+
+                            Swal.fire({
+                                title: 'warning!',
+                                text: 'warning',
+                                type: "wrong",
+                                showConfirmButton: true,
+                                //confirmButtonColor: "#cc3f44",
+                                //confirmButtonText: $(this).data("swa-btn-txt"),
+                                //closeOnConfirm: false,
+                            })
+                        }
+
+                        else {
+                            swal("good", "Your Message has been sent", "success")
+                                .then(willRedirect => {
+                                    if (willRedirect) {
+                                        window.location.href = res.data;
+                                    }
+                                })
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}

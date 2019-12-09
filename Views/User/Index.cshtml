@@ -1,0 +1,106 @@
+﻿@model List<MagicHome.Models.Advert>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "_Layout";
+}
+
+<section id="userpage">
+    <div class="userpage">
+        <div class="container">
+            <div id="forappend" class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="foritem col-md-4">
+                        <div class="card item">
+                            <a href="@Url.Action("Detail","User",new { id = item.Id })">
+                                <div class="card">
+                                    <div class="forimage">
+                                        <img src="~/Images/@item.Image" class="card-img-top"
+                                             alt="...">
+                                    </div>
+                                    @{
+                                        if (item.IsNew == true)
+                                        {
+                                            <div class="new">
+                                                <h4>New</h4>
+                                            </div>
+                                        }
+                                        if (item.IsVip)
+                                        {
+                                            <div class="vip">
+                                                <span><i class="fas fa-crown"></i></span>
+                                            </div>
+                                        }
+                                    }
+
+                                    <div class="card-body">
+
+                                        <h5 class="card-title">₼ @item.Price</h5>
+                                        <div class="icons">
+                                            <i class="fas fa-bed"></i> <span>@item.BedRoom b.r</span>
+                                            <i class="fas fa-bath"></i> <span>@item.BathRoom b.r</span>
+                                            <i class="fas fa-ruler-horizontal"></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                        </div>
+                                        <p>@item.Address</p>
+                                        <p>@item.City.CityName /  @item.Id</p>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+        @{
+            if (ViewBag.TotalCount > 3)
+            {
+                <input type="button" style="display:block;margin:20px auto;cursor:pointer;" id="loadmore" class="btn btn-warning " value="Load More" />
+            }
+            if (Model.Count == 0)
+            {
+                <div class="container">
+                    <h3>You don't have any advert. </h3>
+                </div>
+
+            }
+        }
+
+
+
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            var pagedata = 0;
+            var userid = @ViewBag.UserId;
+            var totalcount = @ViewBag.TotalCount;
+            $(document).on("click", "#loadmore", function () {
+                pagedata += 3;
+
+                $.ajax({
+                    url: "/Ajax/LoadMore",
+                    type: "GET",
+                    data: { page: pagedata , userid:userid },
+                    success: function (res) {
+                        $("#forappend").append(res)
+                        if (pagedata + 3 >= totalcount) {
+                            $("#loadmore").remove();
+                        }
+
+                    }
+                })
+            })
+
+        })
+    </script>
+}
+
+

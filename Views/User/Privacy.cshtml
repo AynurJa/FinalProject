@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Privacy";
+    Layout = "_Layout";
+
+}
+<div class="container-fluid change">
+    <div class="col-md-6 offset-md-3 pt-5">
+        <form id="cngform" method="POST">
+            <div class="form-group">
+                <label for="oldpas">Old Pasword:</label>
+                <input name="oldpass" type="password" class="form-control" id="oldpas" aria-describedby="emailHelp"
+                       placeholder="write old password..." required />
+            </div>
+            <div class="form-group">
+                <label for="Newpassword">New Password:</label>
+                <input name="newpass" type="password" class="form-control" id="Newpassword" aria-describedby="emailHelp"
+                       placeholder="write new password..." required />
+            </div>
+            <div class="form-group">
+                <label for="ConfirmNewpassword">Retype password:</label>
+                <input name="confpass" type="password" class="form-control" id="ConfirmNewpassword" aria-describedby="emailHelp"
+                       placeholder="retype password..." required />
+            </div>
+            <input style="display:block; cursor:pointer;" id="mhop" class="btn btn-primary" name="chngpassword" value="Save" />
+        </form>
+        <form method="post">
+            <div class="accblock mt-3">
+                <h6>are you sure want to close account  <input type="button" id="buttonblock" class="btn btn-danger btn-sm" value="Hesabımı bağla" />Click Me</h6>
+               
+                <label class="blockaccount" for="blockaccount">Password</label>
+                <input style="cursor:pointer;" type="password" name="accblock" class="form-control blockaccount" id="Confirmblock"
+                       placeholder="write password please..." required />
+                <input style="display:block;cursor:pointer;" id="btnblck" class="btn btn-warning btn-sm mt-2 blockaccount" name="blockaccount" value="Save" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section scripts{
+
+
+<script>
+
+
+    $(function () {
+
+
+        $(document).on("click", "mhop", function () {
+            var oldpas = $("#oldpas").val();
+            var confpass = $("#ConfirmNewpassword").val();
+            var newpas = $("#Newpassword").val();
+
+            $.ajax({
+
+                url: "/User/Privacy",
+                method: "POST",
+                data: { oldpass: oldpas, newpass: newpas, confpass: confnewpas },
+                success: function (res) {
+                    if (res.statuscode === "400") {
+                        swal({
+                            title: "Wrong",
+                            text: res.errormesage,
+                            icon: "error",
+                            button: "Ok"
+                        });
+
+                    } else {
+                        swal("good", "Password was changed", "success")
+                            .then(willRedirect => {
+                                if (willRedirect) {
+                                    window.location.href = res.data;
+                                }
+                            })
+                    }
+                }
+
+
+
+            })
+
+        })
+
+
+        $(document).on("click", "#btnblck", function () {
+            var blockpass = $("#Confirmblock").val();
+
+            if (blockpass) {
+                $.ajax({
+                    url: "/User/Privacy",
+                    method: "POST",
+                    data: { accblock: blockpass },
+                    success: function (res) {
+                        if (res.statuscode === "400") {
+                            swal({
+                                title: "Wrong",
+                                text: res.errormessage,
+                                icon: "error",
+                                button: "Ok",
+                            });
+                        } else {
+                            swal("good", "Your account is closed", "success")
+                                .then(willRedirect => {
+                                    if (willRedirect) {
+                                        window.location.href = res.data;
+                                    }
+                                })
+                        }
+                    }
+                })
+            }
+        })
+
+    })
+
+
+    </script>
+
+
+}

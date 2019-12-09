@@ -1,0 +1,131 @@
+﻿@model MagicHome.ViewModel.AdvertPartVW
+@{
+    ViewBag.Title = "Detail";
+    Layout = "_Layout";
+
+
+}
+<section id="detailsection">
+    <div class="detailsection">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="wrapper">
+                        <img src="~/images/@Model.AdvertPart.Image"  style="width:100%;">
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="overview" style="box-sizing:border-box; padding-left:30px; font-size:1em; font-weight:bold">
+                        <h4>DETAILS</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <p class="first-p">Price:</p>
+                            <p class="second-p"> @Model.AdvertPart.Price<sup>$</sup></p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Bed_Room:</p>
+                            <p class="second-p"> @Model.AdvertPart.BedRoom</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Bath_Room:</p>
+                            <p class="second-p"> @Model.AdvertPart.BathRoom</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Area:</p>
+                            <p class="second-p"> @Model.AdvertPart.RoomArea m <sup>2</sup></p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Type:</p>
+                            <p class="second-p"> @Model.AdvertPart.AdvertType.SaleType</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Adress:</p>
+                            <p class="second-p">@Model.AdvertPart.City.CityName @Model.AdvertPart.Address</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Seller:</p>
+                            <p class="second-p">@Model.AdvertPart.User.firstname @Model.AdvertPart.User.lastname</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="first-p">Phone:</p>
+                            <p class="second-p">@Model.AdvertPart.User.PhoneNumber</p>
+                        </div>
+                    </div>
+
+
+                    <div class="decription">
+                        <h4>
+                            Description
+                            <hr>
+                        </h4>
+                        <p class="desc">
+
+                            @Model.AdvertPart.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@{
+
+    if (Model.Adverts.Count != 0)
+    {
+        <section id="ay">
+            <div class="container-fluid">
+                <div class="titlecorusel">
+                    <h3>Other Homes</h3>
+                </div>
+
+                <div class="owl-carousel owl-theme">
+                    @foreach (var item in Model.Adverts)
+                    {
+                        <div class="card item ">
+                            <a href="@Url.Action("Detail","Advert",new { id=item.Id})">
+                                <div class="card ">
+
+                                    <div class="forimage ">
+                                        <img src="~/images/@item.Image " class="card-img-top " alt="... ">
+                                    </div>
+                                    @{
+                                        if (item.IsNew == true)
+                                        {
+                                            <div class="new">
+                                                <h4>New</h4>
+                                            </div>
+                                        }
+                                        if (item.IsVip)
+                                        {
+                                            <div class="vip">
+                                                <span><i class="fas fa-crown"></i></span>
+                                            </div>
+                                        }
+                                    }
+
+                                    <div class="card-body ">
+                                        <div class="liked ">
+                                            <span><i data-id="@item.Id " class="far fa-heart "></i></span>
+                                        </div>
+                                        <h5 class="card-title ">$ @item.Price</h5>
+                                        <div class="icons ">
+                                            <i class="fas fa-bed "></i> <span>@item.BedRoom b.o</span>
+                                            <i class="fas fa-bath "></i> <span>@item.BathRoom b.o</span>
+                                            <i class="fas fa-ruler-horizontal "></i> <span>@item.RoomArea m<sup>2</sup></span>
+                                        </div>
+                                        <p>@item.City.CityName</p>
+                                        <p>@item.Address</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section>
+    }
+}
